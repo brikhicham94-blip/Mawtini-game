@@ -79,23 +79,23 @@ func _play_opening() -> void:
     cinematic_camera.look_at(Vector3(0, 0, -18), Vector3.UP)
     cinematic_camera.current = true
 
-    await _show_card("1956", "الجزائر… تحت ليل الاستعمار", 2.8)
+    await _show_card("1956", "الجزاير… تحت ليل الاستعمار", 2.8)
     if skip_requested:
         _finish_opening()
         return
-    await _show_card("صرخات خلف الأبواب", "نساء ورجال… أصوات تستغيث، وعائلات تنتظر خبراً عن أحبّتها", 4.0)
+    await _show_card("صرخات خلف الأبواب", "عيالات ورجالة يعيطو ويستغيثو… وعائلات تستنى خبر على وليداتها.", 4.0)
     if skip_requested:
         _finish_opening()
         return
-    await _show_card("التعذيب والاعتقال", "شهادات ووثائق عن الصعق الكهربائي، التعذيب بالماء والضرب والإذلال", 4.0)
+    await _show_card("التعذيب والاعتقال", "كانو يعذّبو الناس بالكهرباء، بالماء والضرب… ويهينوهم باش يكسروهم.", 4.0)
     if skip_requested:
         _finish_opening()
         return
-    await _show_card("الإعدام والاختفاء", "أمهات يبحثن عن أبنائهن… وبيوتٌ فقدت أهلها", 4.0)
+    await _show_card("الإعدام والاختفاء", "يمّاوات يقلبو على وليداتهم… وديار ولات خاوية من ناسها.", 4.0)
     if skip_requested:
         _finish_opening()
         return
-    await _show_card("لكن الذاكرة لا تموت", "من الألم وُلد الإصرار… ومن هنا تبدأ حكاية تيارت، 1956", 4.5)
+    await _show_card("لكن الذاكرة لا تموت", "من وسط الوجع، الشعب ما سكتش… ومن هنا تبدا حكايتنا في تيارت، عام 1956.", 4.5)
     if skip_requested:
         _finish_opening()
         return
@@ -111,7 +111,7 @@ func _play_opening() -> void:
     if skip_requested:
         _finish_opening()
         return
-    await _show_card("تيارت — 1956", "ومن هنا… تبدأ رحلتك", 2.5)
+    await _show_card("تيارت — 1956", "ومن هنا… تبدا رحلتك.", 2.5)
     var fade := create_tween()
     fade.tween_property(shade, "color:a", 1.0, 0.8)
     await fade.finished
