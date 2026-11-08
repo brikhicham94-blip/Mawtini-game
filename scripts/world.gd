@@ -9,6 +9,11 @@ const STONE := Color("#9b8c75")
 const ROOF := Color("#8b5944")
 const DARK := Color("#30383a")
 const WOOD := Color("#654631")
+const OCHRE := Color("#c7a77a")
+const PALE_STONE := Color("#eee2c9")
+const SHUTTER_GREEN := Color("#68735d")
+const TERRACOTTA := Color("#985d43")
+const IRON := Color("#343638")
 
 func _ready() -> void:
     _make_environment()
