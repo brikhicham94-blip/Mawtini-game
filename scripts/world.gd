@@ -110,6 +110,24 @@ func _make_house(n: String, center: Vector3, dims: Vector3, wall: Color, front: 
                 _visual_box(self, n + "_Shutter_L", Vector3(center.x + wx - 0.63, wy, face_z + 0.12), Vector3(0.18, 1.35, 0.12), Color("#65705d"))
                 _visual_box(self, n + "_Shutter_R", Vector3(center.x + wx + 0.63, wy, face_z + 0.12), Vector3(0.18, 1.35, 0.12), Color("#65705d"))
 
+
+    # Period roof parapet and facade details: stone surrounds, shutters and iron balconies.
+    _visual_box(self, n + "_Parapet_Front", Vector3(center.x, h + 0.55, face_z), Vector3(w + 0.45, 0.75, 0.22), wall)
+    _visual_box(self, n + "_Parapet_Cap", Vector3(center.x, h + 0.96, face_z), Vector3(w + 0.75, 0.14, 0.38), PALE_STONE)
+    _visual_box(self, n + "_Roof_Edge", center + Vector3(0, h + 0.22, 0), Vector3(w + 0.7, 0.18, d + 0.7), TERRACOTTA)
+    for wx in [-w * 0.29, w * 0.29]:
+        for wy in [2.0, minf(4.0, h - 0.8)]:
+            if wy < h - 0.35:
+                _visual_box(self, n + "_Stone_Lintel", Vector3(center.x + wx, wy + 0.72, face_z + 0.16), Vector3(1.42, 0.16, 0.22), PALE_STONE)
+                _visual_box(self, n + "_Stone_Sill", Vector3(center.x + wx, wy - 0.72, face_z + 0.17), Vector3(1.42, 0.16, 0.25), PALE_STONE)
+                _visual_box(self, n + "_Shutter_Left", Vector3(center.x + wx - 0.63, wy, face_z + 0.2), Vector3(0.2, 1.35, 0.14), SHUTTER_GREEN)
+                _visual_box(self, n + "_Shutter_Right", Vector3(center.x + wx + 0.63, wy, face_z + 0.2), Vector3(0.2, 1.35, 0.14), SHUTTER_GREEN)
+                if wy > 2.5:
+                    _visual_box(self, n + "_Balcony_Floor", Vector3(center.x + wx, wy - 0.78, face_z + 0.58), Vector3(1.7, 0.14, 0.9), STONE)
+                    _visual_box(self, n + "_Balcony_Rail", Vector3(center.x + wx, wy - 0.22, face_z + 0.98), Vector3(1.7, 0.12, 0.12), IRON)
+                    for bx in range(5):
+                        _visual_box(self, n + "_Baluster", Vector3(center.x + wx - 0.68 + float(bx) * 0.34, wy - 0.5, face_z + 0.98), Vector3(0.07, 0.58, 0.07), IRON)
+
 func _make_old_quarter() -> void:
     # Dense low-rise houses, courtyards and narrow lanes on the sloping upper town.
     var row_x := [-66.0, -54.0, 54.0, 66.0]
