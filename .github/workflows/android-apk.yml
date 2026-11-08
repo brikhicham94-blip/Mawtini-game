@@ -9,18 +9,25 @@ jobs:
   build-android:
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:4.3.0
+      image: barichello/godot-ci:4.7.2
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Verify Godot and Android export setup
+        run: |
+          godot --version
+          test -f export_presets.cfg
+          mkdir -p build
 
       - name: Import project assets
         run: godot --headless --editor --path . --quit
 
       - name: Export Android APK
-        run: |
-          mkdir -p build
-          godot --headless --path . --export-debug "Android" build/MAWTINI.apk
+        run: godot --headless --path . --export-debug "Android" build/MAWTINI.apk
+
+      - name: Verify APK
+        run: test -s build/MAWTINI.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
