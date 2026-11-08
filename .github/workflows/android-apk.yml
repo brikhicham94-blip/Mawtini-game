@@ -11,13 +11,34 @@ jobs:
     container:
       image: barichello/godot-ci:4.7.2
     steps:
+      - name: Install Java and system dependencies
+        run: |
+          apt-get update
+          apt-get install -y openjdk-17-jdk fontconfig unzip curl
+          echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> "$GITHUB_ENV"
+
+      - name: Install Android SDK components
+        run: |
+          yes | /usr/lib/android-sdk/cmdline-tools/cmdline-tools/bin/sdkmanager --sdk_root=/usr/lib/android-sdk --licenses
+          /usr/lib/android-sdk/cmdline-tools/cmdline-tools/bin/sdkmanager --sdk_root=/usr/lib/android-sdk "platform-tools" "build-tools;35.0.1" "platforms;android-35"
+
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install matching Godot export templates
+        run: |
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          curl -fL "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz" -o /tmp/godot-templates.tpz
+          unzip -o /tmp/godot-templates.tpz -d /tmp/godot-templates
+          cp /tmp/godot-templates/templates/android_debug.apk "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+          cp /tmp/godot-templates/templates/android_release.apk "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+          echo "4.7.2.stable" > "$HOME/.local/share/godot/export_templates/4.7.2.stable/version.txt"
 
       - name: Verify Godot and Android export setup
         run: |
           godot --version
-          test -f export_presets.cfg
+          java -version
+          test -s "$HOME/.local/share/godot/export_templates/4.7.2.stable/android_debug.apk"
           mkdir -p build
 
       - name: Import project assets
